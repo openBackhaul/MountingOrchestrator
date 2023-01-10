@@ -1,20 +1,16 @@
-Delete these statements:  
-- This repository is a template for specifying applications for the MW SDN application layer  
-- Fill in the Location, Description and Relevance below (check existing repositories as templates)
-
 Delete this link at the end of the specification process:  
 - [Roadmap to Specification](../../issues/1)
 
-# OfficialApplicationName
+# MountingOrchestrator
 
 ### Location
-Location of the application in the logical structure of the application layer.
+The MountingOrchestrator is part of the OperationSupport.
 
 ### Description
-Four to ten sentences describing the functionalities of the application.
+After getting triggered, e.g. by a specific status setting or manually, the MountingOrchestrator mounts a new device in the controller and it requests the MediatorManager for provisioning of a mediator process, if required for the respective device type. Future versions might implement load sharing algorithms or protection functions, if not covered by the infrastructure layer.
 
 ### Relevance
-Statement about the importance of the application.
+The MountingOrchestrator is required for connecting devices to the controller.
 
 ### Resources
 - [Specification](./spec/)
