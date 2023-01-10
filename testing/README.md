@@ -1,7 +1,7 @@
-# OfficialApplicationName Testing
+# MountingOrchestrator Testing
 
 ### Test Cases (Postman Export)
-- [ApplicationPattern+testcases](./ApplicationPattern+testcases.json)
+- [MountingOrchestrator+testcases](./MountingOrchestrator+testcases.json)
 
 ### DATAfile
 - to be provided

@@ -1,20 +1,20 @@
-# OfficialApplicationName Specification
+# MountingOrchestrator Specification
 
 ### ServiceList
-- [OfficialApplicationName+services](./OfficialApplicationName+services.yaml)
+- [MountingOrchestrator+services](./MountingOrchestrator+services.yaml)
 
 ### ProfileList and ProfileInstanceList
-- [OfficialApplicationName+profiles](./OfficialApplicationName+profiles.yaml)
-- [OfficialApplicationName+profileInstances](./OfficialApplicationName+profileInstances.yaml)
+- [MountingOrchestrator+profiles](./MountingOrchestrator+profiles.yaml)
+- [MountingOrchestrator+profileInstances](./MountingOrchestrator+profileInstances.yaml)
 
 ### ForwardingList
-- [OfficialApplicationName+forwardings](./OfficialApplicationName+forwardings.yaml)
+- [MountingOrchestrator+forwardings](./MountingOrchestrator+forwardings.yaml)
 
 ### Open API specification (Swagger)
-- [OfficialApplicationName](./OfficialApplicationName.yaml)
+- [MountingOrchestrator](./MountingOrchestrator.yaml)
 
 ### CONFIGfile (JSON)
-- [OfficialApplicationName+config](./OfficialApplicationName+config.json)
+- [MountingOrchestrator+config](./MountingOrchestrator+config.json)
 
 ### Comments
 ./.
