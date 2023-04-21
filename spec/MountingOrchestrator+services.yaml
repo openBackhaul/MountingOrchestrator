@@ -74,25 +74,25 @@ servers:
         ## TBD:
         ##   is list/unlist this device needed?
         - operation-name: /v1/create-controller
-          uuid: mwdi-1-0-0-op-s-is-000
+          uuid: mo-1-0-0-op-s-is-000
         - operation-name: /v1/delete-controller
-          uuid: mwdi-1-0-0-op-s-is-001
+          uuid: mo-1-0-0-op-s-is-001
         - operation-name: /v1/provide-controller-list
-          uuid: mwdi-1-0-0-op-s-is-002
+          uuid: mo-1-0-0-op-s-is-002
         - operation-name: /v1/update-active-controller
-          uuid: mwdi-1-0-0-op-s-is-003
+          uuid: mo-1-0-0-op-s-is-003
         - operation-name: /v1/create-netconf-server-location
-          uuid: mwdi-1-0-0-op-s-is-004
+          uuid: mo-1-0-0-op-s-is-004
         - operation-name: /v1/delete-netconf-server-location
-          uuid: mwdi-1-0-0-op-s-is-005
+          uuid: mo-1-0-0-op-s-is-005
         - operation-name: /v1/provide-netconf-server-location-list
-          uuid: mwdi-1-0-0-op-s-is-006
+          uuid: mo-1-0-0-op-s-is-006
         - operation-name: /v1/mount-device
-          uuid: mwdi-1-0-0-op-s-is-007
+          uuid: mo-1-0-0-op-s-is-007
         - operation-name: /v1/unmount-device
-          uuid: mwdi-1-0-0-op-s-is-008
+          uuid: mo-1-0-0-op-s-is-008
         - operation-name: /v1/provide-mounted-device-list
-          uuid: mwdi-1-0-0-op-s-is-009
+          uuid: mo-1-0-0-op-s-is-009
         
   http-server:
     own-application-name: MountingOrchestrator
