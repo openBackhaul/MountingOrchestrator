@@ -1,0 +1,275 @@
+@startuml
+
+title <font color=green size=30 ><b>Mount a new device
+
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+database 		"APT (PlanningTool)" as APT
+
+box "Automation Framework" #Orange
+	database 		"Master Data" as MASTER
+	participant     "Automation Framework Scripts" as AF
+end box
+
+box "SDN Application Framework" #Pink
+	participant     "Mounting Orchestrator" as MO
+	participant     "Mediator Manager" as MM
+end box
+
+participant     "SDN Controller" as ODL #green
+
+box "VM" #LightBlue
+	participant     "Mediator Instance Manager" as MIM
+	participant     "Mediator Device" as MD
+end box
+
+participant     "Device" as Device
+
+APT --> AF : Get Device list from planning
+|||
+AF --> AF : Pre-check 
+note left
+Duplicated IP Addresses
+and/or mountnames
+end note
+|||
+
+MASTER --> AF : Get Device list from master data
+
+|||
+AF --> AF : Data comparison
+note left
+Compare planning and
+master data to 
+discover the new devices
+end note
+|||
+
+
+AF <--> Device : Check reachability (PING)
+
+|||
+AF --> AF : Pre-check
+note left
+Get device secondary 
+IP address if needed
+end note
+|||
+
+AF <--> Device : Check reachability (SNMP/Qx)
+
+|||
+
+hnote right AF #violet
+mount-device:
+	device-ip-address
+	device-kind-name
+	device-mountname
+endhnote
+AF -> MO : Mount device REQ
+
+activate MO #DarkSalmon
+
+|||
+MO -> MO : Calculation
+note left
+From device-kind-name, 
+determine if a
+mediator is needed
+end note
+|||
+
+hnote right MO #violet
+create-mediator-instance
+	device-ip-address
+	device-kind-name
+	device-mountname
+endhnote
+
+
+
+MO -> MM : Create Mediator REQ
+
+|||
+MM -> MM : Calculation
+note left
+From device type, 
+define target VM
+end note
+|||
+
+hnote right MM #violet
+provide-mediator-instance:
+	device-ip-address
+	device-kind-name
+	device-mountname
+endhnote
+
+MM -> MIM : Create mediator instance REQ
+
+|||
+MIM -> MIM : Calculation
+note left
+Find proper IP Address/Port
+for new mediator instance
+end note
+|||
+
+MIM --[#red]>o MD: <font color=red><b>Create Mediator Instance
+MD <--[#red]> Device: <font color=red><b>Connect the device
+|||
+
+|||
+note over MM
+In case the mediator instance is 
+already there (for example due to a previous mounting try)
+the MediatorManager will return a success providing
+back details (ip and port) of the 
+already existing mediator instance
+end note
+
+
+group Create mediator instance Failure
+	hnote left ODL #violet
+	4XX NOK (With proper error code)
+	endhnote
+	MIM -> MM : Create mediator instance RES 
+	MO <- MM : Create mediator RES (With proper error code)
+end
+
+
+hnote left MIM #violet
+200 OK:
+	device-netconf-ip-address
+	device-netconf-port
+	mediator-status
+endhnote
+
+MIM -> MM : Create mediator instance RES 
+|||
+hnote over MM #violet
+200 OK:
+	device-mountname
+	device-kind-name
+	device-ip-address
+	device-netconf-ip-address
+	device-netconf-port
+	mediator-status
+endhnote
+
+MM -> MO : Create mediator RES 
+
+|||
+|||
+
+== For each managed SDN controller - BEGIN ==
+
+
+|||
+hnote right MO #violet
+[PUT]
+/rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}:
+	device-netconf-ip-address
+	device-netconf-port
+endhnote
+
+MO -> ODL : Mount device REQ 
+
+|||
+
+ODL <--[#red]> MD: <font color=red><b>Connect the Mediator Instance
+
+|||
+
+|||
+note over MM
+In case the device is already mounted, SDN controller will
+reply with 204. In this case we can proceed with the flow
+end note
+
+
+group Mount device Failure
+	hnote left ODL #violet
+	4XX NOK (With proper error code)
+	endhnote
+	ODL -> MO : Mount device RES 
+	
+	|||
+	hnote right MO #violet
+	[DELETE]
+	/rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}:	
+	endhnote
+
+	MO -> MM : Delete Mediator REQ
+
+|||
+
+hnote right MM #violet
+dismantle-mediator-instance:	
+	device-mountname
+endhnote
+
+MM -> MIM : Delete mediator instance REQ
+
+MIM --[#red]>o MD: <font color=red><b>Delete Mediator Instance
+MD <--[#red]> Device: <font color=red><b>Disconnect the device
+
+
+hnote left MIM #violet
+200 OK
+endhnote
+MIM -> MM : Delete mediator instance RES 
+
+|||
+
+	hnote left MM #violet
+	200 OK
+	endhnote
+	MM -> MO : Delete Mediator RES 
+
+	
+	AF <- MO : Mount device RES (With proper error code)
+	
+end
+
+hnote left ODL #violet
+200 OK
+	device-netconf-ip-address
+	device-netconf-port
+endhnote
+ODL -> MO : Mount device RES 
+
+|||
+
+== For each managed SDN controller - END ==
+
+|||
+|||
+
+
+hnote left MO #violet
+If success on all controllers, 200 OK.
+Otherwise try to rollback 
+and reply with proper error message
+
+200 OK
+	device-mountname
+	device-kind-name
+	device-ip-address
+	device-netconf-ip-address
+	device-netconf-port
+	mediator-status
+	device-status
+endhnote
+
+AF <- MO : Mount device RES
+deactivate MO #DarkSalmon
+
+MASTER <-- AF : Update Master Data
+
+
+
+@enduml

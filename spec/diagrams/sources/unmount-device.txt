@@ -1,0 +1,177 @@
+@startuml
+
+title <font color=green size=30 ><b>Unmount a device
+
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+database 		"APT (PlanningTool)" as APT
+
+box "Automation Framework" #Orange
+	database 		"Master Data" as MASTER
+	participant     "Automation Framework Scripts" as AF
+end box
+
+box "SDN Application Framework" #Pink
+	participant     "Mounting Orchestrator" as MO
+	participant     "Mediator Manager" as MM
+end box
+
+participant     "SDN Controller" as ODL #green
+
+box "VM" #LightBlue
+	participant     "Mediator Instance Manager" as MIM
+	participant     "Mediator Device" as MD
+end box
+
+participant     "Device" as Device
+
+APT --> AF : Get Device list from planning
+|||
+AF --> AF : Pre-check 
+note left
+Duplicated IP Addresses
+and/or mountnames
+end note
+|||
+
+MASTER --> AF : Get Device list from master data
+
+|||
+AF --> AF : Data comparison
+note left
+Compare planning and
+master data to 
+discover devices that 
+need to be removed
+(i.e. removed from planning 
+either no more reachable for more than 15 days)
+end note
+
+hnote right AF #violet
+unmount-device:
+	device-mountname
+endhnote
+AF -> MO : UnMount device REQ
+
+activate MO #DarkSalmon
+
+|||
+
+== For each managed SDN controller - BEGIN ==
+
+|||
+hnote right MO #violet
+[DELETE]
+/rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}:	
+endhnote
+
+MO -> ODL : UnMount device REQ 
+
+|||
+
+ODL <--[#red]> MD: <font color=red><b>Disconnect the Mediator Instance
+
+|||
+
+group UnMount an already deleted Device 
+	hnote left ODL #violet
+	404 NOK
+	endhnote
+	ODL -> MO : UnMount device RES 
+	
+	note left ODL
+		The device was previously unmounted
+		either never mounted due to some previous error
+		GO AHEAD without any error
+	end note	
+end
+
+group UnMount on SDN Controller Failure (no 404)
+	hnote left ODL #violet
+	4XX NOK (With proper error code)
+	endhnote
+	ODL -> MO : UnMount device RES 
+	AF <- MO : UnMount device RES (With proper error code)
+end
+
+
+hnote left ODL #violet
+200 OK
+endhnote
+ODL -> MO : UnMount device RES 
+
+
+|||
+== For each managed SDN controller - END ==
+|||
+|||
+hnote right MO #violet
+delete-mediator-instance
+	device-mountname
+endhnote
+
+MO -> MM : Delete Mediator REQ
+
+hnote right MM #violet
+dismantle-mediator-instance:	
+	device-mountname
+endhnote
+
+MM -> MIM : Delete mediator instance REQ
+
+MIM --[#red]>o MD: <font color=red><b>Delete Mediator Instance
+MD <--[#red]> Device: <font color=red><b>Disconnect the device
+
+|||
+
+group Delete an already deleted Mediator Instance
+	hnote left MIM #violet
+	404 NOK
+	endhnote
+	MIM -> MM : Delete mediator instance RES 
+
+	note left MIM
+		The mediator was previously deleted 
+		either never created due to some previous error
+		GO AHEAD without any error
+	end note	
+
+end
+
+
+|||
+
+group Delete Mediator Instance Failure (no 404)
+	hnote left MIM #violet
+	4XX NOK (With proper error code)
+	endhnote
+	MIM -> MM : Delete mediator instance RES 
+	MO <- MM : Delete mediator instance RES (With proper error code)
+	AF <- MO : UnMount device RES (With proper error code)
+end
+
+
+hnote left MIM #violet
+200 OK
+endhnote
+MIM -> MM : Delete mediator instance RES 
+
+|||
+hnote over MM #violet
+200 OK
+endhnote
+
+MM -> MO : Delete mediator RES 
+
+
+AF <- MO : UnMount device RES
+deactivate MO #DarkSalmon
+
+MASTER <-- AF : Update Master Data
+
+
+
+@enduml
