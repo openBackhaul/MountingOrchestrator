@@ -109,10 +109,10 @@ servers:
         ##           mediator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
         ##           device-status     ## This is the status provided by SDN controller   (empty in case device is not mounted on SDN controller)
         - operation-name: /v1/mount-device
-          uuid: mo-1-0-0-op-s-is-007
+          uuid: mo-1-0-0-op-s-is-001
         ## IN: device-mountname
         - operation-name: /v1/unmount-device
-          uuid: mo-1-0-0-op-s-is-008
+          uuid: mo-1-0-0-op-s-is-002
         ## IN: device-mountname (OPTIONAL - In case it is not provided, full list of mounted devices will be returned)
         ## OUT: for each device:
         ##           device-mountname
@@ -123,7 +123,7 @@ servers:
         ##           mediator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
         ##           device-status     ## This is the status provided by SDN controller   (empty in case device is not mounted on SDN controller)
         - operation-name: /v1/provide-mounted-device-status
-          uuid: mo-1-0-0-op-s-is-009
+          uuid: mo-1-0-0-op-s-is-003
         
   http-server:
     own-application-name: MountingOrchestrator
