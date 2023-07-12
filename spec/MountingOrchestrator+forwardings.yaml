@@ -83,7 +83,13 @@ forwardings:
         uuid: mo-1-0-0-op-s-bs-004
       - server-name: /docs
         uuid: mo-1-0-0-op-s-bs-005
-      ## TODO: All service requests to be complemented
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-001
+      - server-name: /v1/unmount-device
+        uuid: mo-1-0-0-op-s-is-002
+      - server-name: /v1/provide-mounted-device-status
+        uuid: mo-1-0-0-op-s-is-003
+      ## DONE: All service requests completed
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
         uuid: mo-1-0-0-op-c-bs-eatl-2-0-0-000
@@ -122,13 +128,13 @@ forwardings:
       - client-name: AdministratorAdministration://v1/approve-oam-request
         uuid: mo-1-0-0-op-c-bs-aa-2-0-0-000
 
-## TODO: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease
+## DONE: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease - nothing to do
 
-## TODO: Add Forwardings for transferring data to NewRelease
+## DONE: Add Forwardings for transferring data to NewRelease - nothing to do
 
-## TODO: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease
+## DONE: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease - nothing to do
 
-## TODO: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease
+## DONE: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease - nothing to do
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
     uuid: mo-1-0-0-op-fc-bm-105
@@ -218,7 +224,7 @@ forwardings:
         uuid: mo-1-0-0-op-s-bm-011
       - server-name: /v1/bequeath-your-data-and-die
         uuid: mo-1-0-0-op-s-im-000
-      ## TODO: All INDIVIDUAL service requests, which are updating an LTP, to be complemented
+      ## DONE: All INDIVIDUAL service requests, which are updating an LTP, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-001
@@ -236,7 +242,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## TODO: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented
+      ## DONE: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-002
@@ -254,7 +260,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## TODO: All INDIVIDUAL service requests, which are updating an FC, to be complemented
+      ## DONE: All INDIVIDUAL service requests, which are updating an FC, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-003
@@ -272,7 +278,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## TODO: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented
+      ## DONE: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-004
@@ -292,7 +298,7 @@ forwardings:
     initiating-requests:
       - server-name: /v1/end-subscription
         uuid: mo-1-0-0-op-s-bm-004
-      ## TODO: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented
+      ## DONE: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-005
@@ -382,4 +388,111 @@ forwardings:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-005
 
-  ## TODO: Potential INDIVIDUAL Forwardings to be added
+  ## DONE: INDIVIDUAL Forwarding
+
+  - forwarding-name: MountDeviceRequestCausesCreateMediatorInstanceRequest
+    uuid: mo-1-0-0-op-fc-is-001
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-001
+    consequent-requests:
+      - client-name: MediatorManager://v1/create-mediator-instance
+        uuid: mo-1-0-0-op-s-is-mm-1-0-0-000
+
+  - forwarding-name: MountDeviceRequestCausesMountDeviceOnControllerRequest
+    uuid: mo-1-0-0-op-fc-is-002
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-001
+    consequent-requests:
+      # HTTP PUT
+      - client-name: ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}
+        uuid: mo-1-0-0-op-s-is-c-1-0-0-002
+
+- forwarding-name: UnmountDeviceRequestCausesUnmountDeviceOnControllerRequest
+    uuid: mo-1-0-0-op-fc-is-003
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/unmount-device
+        uuid: mo-1-0-0-op-s-is-002
+    consequent-requests:
+      # HTTP DELETE
+      - client-name: ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}
+        uuid: mo-1-0-0-op-c-is-c-1-0-0-002
+
+ - forwarding-name: UnmountDeviceRequestCausesDeleteMediatorInstanceRequest
+    uuid: mo-1-0-0-op-fc-is-004
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/unmount-device
+        uuid: mo-1-0-0-op-s-is-002
+    consequent-requests:
+      - client-name: MediatorManager://v1/delete-mediator-instance
+        uuid: mo-1-0-0-op-c-is-mm-1-0-0-001
+
+  - forwarding-name: ProvideMountedDeviceStatusRequestCausesProvideMediatorInstanceRequest
+    uuid: mo-1-0-0-op-fc-is-005
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/provide-mounted-device-status
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: MM://v1/provide-mediator-instance
+        uuid: mo-1-0-0-op-c-is-mm-1-0-0-002
+
+  - forwarding-name: ProvideMountedDeviceStatusForAllDevicesRequestCausesGetDeviceStatusRequestOnController
+    uuid: mo-1-0-0-op-fc-is-006
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/provide-mounted-device-status
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: ODL://rests/data/network-topology:network-topology/topology=topology-netconf
+        uuid: mo-1-0-0-op-c-is-c-1-0-0-000
+
+  - forwarding-name: ProvideMountedDeviceStatusForASpecificDeviceRequestCausesGetDeviceStatusRequestOnController
+    uuid: mo-1-0-0-op-fc-is-007
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/provide-mounted-device-status
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node={mount-name}
+        uuid: mo-1-0-0-op-c-is-c-1-0-0-001

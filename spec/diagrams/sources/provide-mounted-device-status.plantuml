@@ -1,0 +1,119 @@
+@startuml
+
+title <font color=green size=30 ><b>Mount a new device
+
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+participant     "Client (e.g. Automation Framework Scripts)" as AF
+
+box "SDN Application Framework" #Pink
+	participant     "Mounting Orchestrator" as MO
+	participant     "Mediator Manager" as MM
+end box
+
+participant     "SDN Controller" as ODL #green
+
+
+box "VM" #LightBlue
+	participant     "Mediator Instance Manager" as MIM
+	participant     "Mediator Device" as MD
+end box
+
+participant     "Device" as Device
+
+
+|||
+note right AF
+In case mount-name is not
+provided, returns the full list 
+of mounted devices
+end note
+
+hnote right AF #violet
+provide-mounted-device-status:
+	mount-name
+endhnote
+
+AF --> MO : Get Mounted Device Status
+|||
+
+|||
+note right MO
+In case mount-name is not
+provided, returns the full list 
+of mediator instances
+end note
+hnote right MO #violet
+provide-mediator-instance
+	mount-name
+endhnote
+
+
+MO --> MM : Get Mediator Device Status
+|||
+
+
+hnote left MM #violet
+List of:
+	device-mountname
+	device-kind-name
+	device-ip-address
+	device-netconf-ip-address
+	device-netconf-port
+	mediator-status
+endhnote
+
+MM --> MO : Get Mediator Device Status Response
+|||
+
+hnote right MO #violet
+/rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id;node-id;netconf-node-topology:connection-status)
+endhnote
+MO --> ODL : Get Device Status
+|||
+
+
+hnote left ODL #violet
+List of:
+	mount-name
+	device-status
+endhnote
+
+ODL --> MO :  Get Device Status Response
+
+|||
+MO -> MO : Calculation
+note left
+Match info from MediatorManager with
+info from SDN Controller and create the response
+end note
+|||
+
+
+note left MO
+In case a device has no corresponding mediator instance, 
+device-netconf-ip-address, device-netconf-port, mediator-status are not provided
+
+In case a device has no corresponding mounted point on SDN controller, 
+device-status is not provided
+end note
+
+hnote left MO #violet
+List of:
+	device-mountname
+	device-kind-name
+	device-ip-address
+	device-netconf-ip-address
+	device-netconf-port
+	mediator-status
+	device-status
+endhnote
+
+MO --> AF : Get Mounted Device Status Response
+|||
+
+
+@enduml
