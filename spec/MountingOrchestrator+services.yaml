@@ -74,31 +74,29 @@ servers:
         ##      In case no mount-name is provided, the full list of all mounted devices shall be returned
         ## TBD:
         ##   is list/unlist this device needed?
-
-## The following services will be implemented as OAM services
-
+        ##
+        ## The following services will be implemented as OAM services
+        ##
         ##- operation-name: /v1/create-controller
         ##  uuid: mo-1-0-0-op-s-is-000
         ##- operation-name: /v1/delete-controller
         ##  uuid: mo-1-0-0-op-s-is-001
         ##- operation-name: /v1/provide-controller-list
         ##  uuid: mo-1-0-0-op-s-is-002
-
-## There is no active controller... all controllers are active - I guess we can remove this service
-
+        ##
+        ## There is no active controller... all controllers are active - I guess we can remove this service
+        ## 
         ##- operation-name: /v1/update-active-controller
         ##  uuid: mo-1-0-0-op-s-is-003
-
-## Do we need these services: maybe MountingOrchestrato and MediatorManager should mask this kind of information
-## In case we still need them: should we implement on MediatorManager side?
-
+        ##
+        ## Do we need these services: maybe MountingOrchestrato and MediatorManager should mask this kind of information
+        ## In case we still need them: should we implement on MediatorManager side?
         ##- operation-name: /v1/create-netconf-server-location
         ##  uuid: mo-1-0-0-op-s-is-004
         ##- operation-name: /v1/delete-netconf-server-location
         ##  uuid: mo-1-0-0-op-s-is-005
         ##- operation-name: /v1/provide-netconf-server-location-list
         ##  uuid: mo-1-0-0-op-s-is-006
-
         ## IN: device-ip-address, device-kind-name, device-mountname
         ## OUT: 
         ##           device-mountname
@@ -106,7 +104,7 @@ servers:
         ##           device-ip-address
         ##           device-netconf-ip-address (empty in case mediator is not there)
         ##           device-netconf-port       (empty in case mediator is not there)
-        ##           mediator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
+        ##           mediWator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
         ##           device-status     ## This is the status provided by SDN controller   (empty in case device is not mounted on SDN controller)
         - operation-name: /v1/mount-device
           uuid: mo-1-0-0-op-s-is-001

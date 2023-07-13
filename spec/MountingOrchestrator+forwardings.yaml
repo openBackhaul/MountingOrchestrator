@@ -421,7 +421,7 @@ forwardings:
       - client-name: ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}
         uuid: mo-1-0-0-op-s-is-c-1-0-0-002
 
-- forwarding-name: UnmountDeviceRequestCausesUnmountDeviceOnControllerRequest
+  - forwarding-name: UnmountDeviceRequestCausesUnmountDeviceOnControllerRequest
     uuid: mo-1-0-0-op-fc-is-003
     forwarding-type: InvariantProcessSnippet
     management-requests:
@@ -437,7 +437,7 @@ forwardings:
       - client-name: ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}
         uuid: mo-1-0-0-op-c-is-c-1-0-0-002
 
- - forwarding-name: UnmountDeviceRequestCausesDeleteMediatorInstanceRequest
+  - forwarding-name: UnmountDeviceRequestCausesDeleteMediatorInstanceRequest
     uuid: mo-1-0-0-op-fc-is-004
     forwarding-type: InvariantProcessSnippet
     management-requests:
