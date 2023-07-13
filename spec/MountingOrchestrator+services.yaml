@@ -416,10 +416,10 @@ clients:
         individual:
           ## IN: device-ip-address, device-kind-name, device-mountname
           ## OUT: device-mountname, device-kind-name, device-ip-address, device-netconf-ip-address, device-netconf-port, mediator-status
-          - operation-name: /v1/create-mediator-instance
+          - operation-name: /v1/provide-mediator-for-this-device
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-000
           ## IN: device-mountname
-          - operation-name: /v1/delete-mediator-instance
+          - operation-name: /v1/dismantle-mediator-for-this-device
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-001
           ## IN: device-mountname (OPTIONAL - In case it is not provided, full list of mediator instances will be returned)
           ## OUT: for each mediator:
@@ -429,5 +429,5 @@ clients:
           ##           device-netconf-ip-address
           ##           device-netconf-port
           ##           mediator-status
-          - operation-name: /v1/provide-mediator-instance
+          - operation-name: /v1/export-mediator-vm-list
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-002

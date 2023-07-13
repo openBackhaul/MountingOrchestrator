@@ -387,7 +387,7 @@ forwardings:
       - server-name: /v1/mount-device
         uuid: mo-1-0-0-op-s-is-001
     consequent-requests:
-      - client-name: MediatorManager://v1/create-mediator-instance
+      - client-name: MediatorManager://v1/provide-mediator-for-this-device
         uuid: mo-1-0-0-op-s-is-mm-1-0-0-000
 
   - forwarding-name: MountDeviceRequestCausesMountDeviceOnControllerRequest
@@ -434,7 +434,7 @@ forwardings:
       - server-name: /v1/unmount-device
         uuid: mo-1-0-0-op-s-is-002
     consequent-requests:
-      - client-name: MediatorManager://v1/delete-mediator-instance
+      - client-name: MediatorManager://v1/dismantle-mediator-for-this-device
         uuid: mo-1-0-0-op-c-is-mm-1-0-0-001
 
   - forwarding-name: ProvideMountedDeviceStatusRequestCausesProvideMediatorInstanceRequest
@@ -449,7 +449,7 @@ forwardings:
       - server-name: /v1/provide-mounted-device-status
         uuid: mo-1-0-0-op-s-is-003
     consequent-requests:
-      - client-name: MM://v1/provide-mediator-instance
+      - client-name: MM://v1/export-mediator-vm-list
         uuid: mo-1-0-0-op-c-is-mm-1-0-0-002
 
   - forwarding-name: ProvideMountedDeviceStatusForAllDevicesRequestCausesGetDeviceStatusRequestOnController
