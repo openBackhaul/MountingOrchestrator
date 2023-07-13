@@ -89,7 +89,7 @@ forwardings:
         uuid: mo-1-0-0-op-s-is-002
       - server-name: /v1/provide-mounted-device-status
         uuid: mo-1-0-0-op-s-is-003
-      ## DONE: All service requests completed
+        ## DONE: All service requests completed
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
         uuid: mo-1-0-0-op-c-bs-eatl-2-0-0-000
@@ -127,14 +127,6 @@ forwardings:
     consequent-requests:
       - client-name: AdministratorAdministration://v1/approve-oam-request
         uuid: mo-1-0-0-op-c-bs-aa-2-0-0-000
-
-## DONE: Potentially add Forwardings for configuring INDIVIDUAL subscriptions on NewRelease - nothing to do
-
-## DONE: Add Forwardings for transferring data to NewRelease - nothing to do
-
-## DONE: Potentially add Forwardings for creating INDIVIDUAL subscriptions to NewRelease - nothing to do
-
-## DONE: Potentially add Forwardings for ending INDIVIDUAL subscriptions to OldRelease - nothing to do
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
     uuid: mo-1-0-0-op-fc-bm-105
@@ -224,7 +216,6 @@ forwardings:
         uuid: mo-1-0-0-op-s-bm-011
       - server-name: /v1/bequeath-your-data-and-die
         uuid: mo-1-0-0-op-s-im-000
-      ## DONE: All INDIVIDUAL service requests, which are updating an LTP, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-001
@@ -242,7 +233,6 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## DONE: All INDIVIDUAL service requests, which are deleting an LTP, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-002
@@ -260,7 +250,6 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## DONE: All INDIVIDUAL service requests, which are updating an FC, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-003
@@ -278,7 +267,6 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      ## DONE: All INDIVIDUAL service requests, which are updating an FC-Port, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-004
@@ -298,7 +286,6 @@ forwardings:
     initiating-requests:
       - server-name: /v1/end-subscription
         uuid: mo-1-0-0-op-s-bm-004
-      ## DONE: All INDIVIDUAL service requests, which are deleting an FC-Port, to be complemented - nothing to do
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-005
@@ -387,8 +374,6 @@ forwardings:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-0-0-005
-
-  ## DONE: INDIVIDUAL Forwarding
 
   - forwarding-name: MountDeviceRequestCausesCreateMediatorInstanceRequest
     uuid: mo-1-0-0-op-fc-is-001
