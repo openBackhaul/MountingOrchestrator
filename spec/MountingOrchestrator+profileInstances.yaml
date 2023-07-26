@@ -113,6 +113,17 @@ profile-instances:
 
   ## DONE: Potentially add further instances of FileProfile - no further instance is needed
 
-  ## DONE: Potentially add further instances of IntegerProfile - no further instance is needed
+  ## DONE: Potentially add further instances of IntegerProfile
+
+  - profile-name: 'IntegerProfile'
+    uuid: 'mo-1-0-0-integer-p-000'
+    capability:
+      integer-name: 'MountTimeout'
+      # description: 'Number of seconds MountingOrchestrator waits for NotificationProxy DeviceStatus notification after mounting the device on controller'
+      unit: 'second'
+      minimum: 1
+      maximum: 30
+    configuration:
+      integer-value: 5
 
   ## DONE: Potentially add further instances of StringProfile - no further instance is needed
