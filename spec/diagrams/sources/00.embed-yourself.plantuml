@@ -1,0 +1,26 @@
+@startuml
+
+skinparam responseMessageBelowArrow true
+
+title embed-yourself
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+participant     "RegistryOffice" as RO
+box "Mounting Orchestrator" 
+    participant     "MO://v1/embed-yourself" as MO
+    participant     "MO://v1/regard-device-newly-connected-to-controller" as receivers
+end box
+participant     "NP://v1/notify-devices-newly-\nconnected-to-controller" as npnew
+
+
+RO -> MO
+activate "MO"
+note over MO: subscribe for info about \nnew devices
+MO -> npnew: {ownIp, ownPort, ownReceiveOperation} (apiKeyAuth)
+
+MO -> RO
+deactivate "MO"
+
+npnew -> receivers: {notifications} (apiKeyAuth)

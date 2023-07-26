@@ -1,0 +1,39 @@
+@startuml
+
+skinparam responseMessageBelowArrow true
+
+title mount-device
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+box "Mounting Orchestrator" 
+    participant     "MO://v1/mount-device" as A
+    participant     "MO://v1/regard-device-newly-connected-to-controller" as D
+end box
+
+participant     "MM://v1/provide-mediator-for-this-device" as B
+participant     "PUT ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}" as C
+participant     "NotificationProxy" as NP
+
+[-> "A": {device-ip-address,device-kind-name,device-mountname} (apiKeyAuth)
+activate "A"
+A -> B: {device-ip-address,device-kind-name,device-mountname} (apiKeyAuth)
+B -> A: {device-netconf-ip-address,device-netconf-port}
+
+|||
+|||
+
+== For each managed SDN controller - BEGIN ==
+A -> C: {PUT}
+C -> A: {HTTP 202}
+NP -> D: {device-status}
+== For each managed SDN controller - END ==
+
+|||
+|||
+
+
+D ->[: {device-ip-address,device-kind-name,device-mountname,device-netconf-ip-address,device-netconf-port, List of: {controller-ip-address, device-status}}
+deactivate "A"

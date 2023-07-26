@@ -1,0 +1,38 @@
+@startuml
+
+skinparam responseMessageBelowArrow true
+
+title unmount-device
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+    participant     "MO://v1/unmount-device" as A
+
+participant     "MM://v1/dismantle-mediator-for-this-device" as B
+participant     "DELETE ODL://rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}" as C
+
+activate "A"
+
+[-> "A": {device-mountname,device-netconf-ip-address} (apiKeyAuth)
+|||
+|||
+== For each managed SDN controller - BEGIN ==
+A -> C
+C -> A: {HTTP 200}
+== For each managed SDN controller - END ==
+|||
+|||
+
+
+
+A -> B: {device-mountname,device-netconf-ip-address} (apiKeyAuth)
+B -> A: {HTTP 200}
+
+
+
+
+
+A ->[: {HTTP 200}}
+deactivate "A"

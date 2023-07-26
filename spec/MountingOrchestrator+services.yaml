@@ -42,6 +42,10 @@ servers:
         - service-name: /docs
           uuid: mo-1-0-0-op-s-bs-005
       individual:
+        # receiver for notifications from NotificationProxy
+        - operation-name: /v1/regard-device-newly-connected-to-controller
+          uuid: mo-1-0-0-op-s-is-000
+        # ordinary services
         ## 000) /v1/create-controller
         ##      Called for adding a new controller (e.g. ODL instance) to the list of potential mounting target
         ##
@@ -104,11 +108,12 @@ servers:
         ##           device-ip-address
         ##           device-netconf-ip-address (empty in case mediator is not there)
         ##           device-netconf-port       (empty in case mediator is not there)
-        ##           mediator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
-        ##           device-status     ## This is the status provided by SDN controller   (empty in case device is not mounted on SDN controller)
+        ##           List: for each managed controller
+        ##                controller-ip-address ## This is the IP address of the SDN controller
+        ##                device-status         ## This is the status provided by SDN controller
         - operation-name: /v1/mount-device
           uuid: mo-1-0-0-op-s-is-001
-        ## IN: device-mountname
+        ## IN: device-mountname, device-netconf-ip-address
         - operation-name: /v1/unmount-device
           uuid: mo-1-0-0-op-s-is-002
         ## IN: device-mountname (OPTIONAL - In case it is not provided, full list of mounted devices will be returned)
@@ -118,8 +123,9 @@ servers:
         ##           device-ip-address
         ##           device-netconf-ip-address (empty in case mediator is not there)
         ##           device-netconf-port       (empty in case mediator is not there)
-        ##           mediator-status   ## This is the status provided by MediatorManager  (empty in case mediator is not there)
-        ##           device-status     ## This is the status provided by SDN controller   (empty in case device is not mounted on SDN controller)
+        ##           List: for each managed controller
+        ##                controller-ip-address ## This is the IP address of the SDN controller
+        ##                device-status         ## This is the status provided by SDN controller
         - operation-name: /v1/provide-mounted-device-status
           uuid: mo-1-0-0-op-s-is-003
 
@@ -387,11 +393,8 @@ clients:
           ## This is a GET used for retrieving the list of mounted devices on SDN controller
           ## In order to get only mount name and connection status:
           ## /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id;netconf-node-topology:connection-status)
-          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf
+          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id;netconf-node-topology:connection-status)
             uuid: mo-1-0-0-op-c-is-c-1-0-0-000
-          ## This is a GET used for retrieving specific information on a given mount-name
-          - operation-name: /rests/data/network-topology:network-topology/topology/topology-netconf/node={mount-name}
-            uuid: mo-1-0-0-op-c-is-c-1-0-0-001
           ## This is used both for creation (PUT) and for deletion (DELETE)
           - operation-name: /rests/data/network-topology:network-topology/topology/topology-netconf/node/{mount-name}
             uuid: mo-1-0-0-op-c-is-c-1-0-0-002
@@ -429,5 +432,29 @@ clients:
           ##           device-netconf-ip-address
           ##           device-netconf-port
           ##           mediator-status
-          - operation-name: /v1/export-mediator-vm-list
+          - operation-name: /v1/export-mediator-device-instance-list
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-002
+
+  - http-client:
+      application-name: NotificationProxy
+      release-number: 1.0.0
+      uuid: mo-1-0-0-http-c-np-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.4.11
+      tcp-port: 4011
+      uuid: mo-1-0-0-tcp-c-np-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          ## subscribing for controller notifications
+          - operation-name: /v1/notify-devices-newly-connected-to-controller
+            uuid: mo-1-0-0-op-c-is-np-1-0-0-000
+          ## unsubscribe from notifications
+          - operation-name: /v1/end-subscription
+            uuid: mo-1-0-0-op-c-is-np-1-0-0-001
+
