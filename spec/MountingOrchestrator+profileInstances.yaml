@@ -113,7 +113,7 @@ profile-instances:
 
   ## DONE: Potentially add further instances of FileProfile - no further instance is needed
 
-  ## DONE: Potentially add further instances of IntegerProfile - no further instance is needed
+  ## DONE: Potentially add further instances of IntegerProfile
 
   - profile-name: 'IntegerProfile'
     uuid: 'mo-1-0-0-integer-p-000'
