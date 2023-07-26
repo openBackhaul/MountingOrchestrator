@@ -1,0 +1,34 @@
+@startuml
+
+skinparam responseMessageBelowArrow true
+
+title provide-mounted-device-status
+
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+participant     "MO://v1/provide-mounted-device-status" as A
+
+participant     "MM://v1/export-mediator-device-instance-list" as B
+participant     "GET ODL://rests/data/network-topology:network-topology/topology=topology-netconf" as C
+
+[-> "A": {optional: device-mountname}(apiKeyAuth)
+activate "A"
+A -> B: (apiKeyAuth)
+B -> A: {List of: {device-mountname,device-kind-name,device-ip-address,device-netconf-ip-address,device-netconf-port}}
+
+|||
+|||
+
+== For each managed SDN controller - BEGIN ==
+A -> C
+C -> A: {List of: {mount-name,device-status}}
+== For each managed SDN controller - END ==
+
+|||
+|||
+
+
+A ->[: {List of: {device-mountname,device-kind-name,device-ip-address,device-netconf-ip-address,device-netconf-port, List of: {controller-ip-address, device-status}}}
+deactivate "A"
