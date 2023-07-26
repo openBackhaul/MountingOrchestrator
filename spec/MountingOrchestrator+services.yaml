@@ -457,4 +457,3 @@ clients:
           ## unsubscribe from notifications
           - operation-name: /v1/end-subscription
             uuid: mo-1-0-0-op-c-is-np-1-0-0-001
-

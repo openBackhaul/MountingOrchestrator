@@ -90,7 +90,7 @@ forwardings:
       - server-name: /v1/unmount-device
         uuid: mo-1-0-0-op-s-is-002
       - server-name: /v1/provide-mounted-device-status
-        uuid: mo-1-0-0-op-s-is-003      
+        uuid: mo-1-0-0-op-s-is-003
         ## DONE: All service requests completed
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
@@ -469,7 +469,7 @@ forwardings:
       - client-name: ODL://rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id;netconf-node-topology:connection-status)
         uuid: mo-1-0-0-op-c-is-c-1-0-0-000
 
-- forwarding-name: PromptForEmbeddingCausesSubscribingForNotificationsAboutDevicesNewlyConnectedToNotificationProxy
+  - forwarding-name: PromptForEmbeddingCausesSubscribingForNotificationsAboutDevicesNewlyConnectedToNotificationProxy
     uuid: mo-1-0-0-op-fc-is-008
     forwarding-type: InvariantProcessSnippet
     management-requests:
@@ -484,7 +484,7 @@ forwardings:
       - client-name: NotificationProxy://v1/notify-devices-newly-connected-to-controller
         uuid: mo-1-0-0-op-c-is-np-1-0-0-000
 
-- forwarding-name: PromptForBequeathingDataCausesUnsubscribingFromDeviceAndControllerNotificationsAtNotificationProxy
+  - forwarding-name: PromptForBequeathingDataCausesUnsubscribingFromDeviceAndControllerNotificationsAtNotificationProxy
     uuid: mo-1-0-0-op-fc-im-009
     forwarding-type: InvariantProcessSnippet
     management-requests:

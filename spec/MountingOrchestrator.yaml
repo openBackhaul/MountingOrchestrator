@@ -182,7 +182,7 @@ paths:
                         own-receive-operation:
                           type: string
                           description: >
-                            'HTTP service to be called                        
+                            'HTTP service to be called
                       example:
                         own-receive-operation: '//v1/regard-device-newly-connected-to-controller'
                         own-ip-address:
@@ -232,7 +232,7 @@ paths:
                 '500':
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'        
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
           url: #[/core-model-1-4:control-construct/logical-termination-point=mo-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=mo-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=mo-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=mo-1-0-0-tcp-c-ro-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=mo-1-0-0-op-c-bm-ro-2-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
@@ -679,23 +679,23 @@ paths:
                     description: >
                       'TCP Port exposed by Netconf mediator device
                   device-status-list:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          controller-ip-address:
-                            type: string
-                            pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-                            description: >
-                              'IPv4 address of the mounted device
-                          device-status:
-                            type: string
-                            enum:
-                              - 'CONNECTED'
-                              - 'DISCONNECTED'
-                              - 'UNKNOWN'
-                            description: >
-                              'The status of the device according to the MountingOrchestrator
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        controller-ip-address:
+                          type: string
+                          pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                          description: >
+                            'IPv4 address of the mounted device
+                        device-status:
+                          type: string
+                          enum:
+                            - 'CONNECTED'
+                            - 'DISCONNECTED'
+                            - 'UNKNOWN'
+                          description: >
+                            'The status of the device according to the MountingOrchestrator
                 example:
                   device-ip-address: '172.26.79.23'
                   device-kind-name: 'Alcplus2e'
@@ -782,7 +782,7 @@ paths:
                         device-mountname:
                           type: string
                           description: >
-                            'Name that shall be assigned to the mounted device       
+                            'Name that shall be assigned to the mounted device
                       example:
                         device-ip-address: '172.26.79.23'
                         device-kind-name: 'Alcplus2e'
@@ -923,7 +923,7 @@ paths:
                 '500':
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'        
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
   /v1/unmount-device:
     parameters:
       - $ref: '#/components/parameters/user'
@@ -953,7 +953,7 @@ paths:
                   description: >
                     'Name of the device that shall be unmounted
               example:
-                device-mountname: '166433323-p2e'               
+                device-mountname: '166433323-p2e'
       responses:
         '204':
           description: 'Device correctly unmounted.'
@@ -1142,7 +1142,7 @@ paths:
                 '500':
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'        
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
   /v1/provide-mounted-device-status:
     parameters:
       - $ref: '#/components/parameters/user'
