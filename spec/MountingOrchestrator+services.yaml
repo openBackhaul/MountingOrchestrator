@@ -51,15 +51,58 @@ servers:
         - operation-name: /docs
           uuid: mo-1-0-0-op-s-bs-005
       individual:
+      ## Device CRUD operations
+        - operation-name: /v1/provide-list-of-mount-points
+          uuid: mo-1-0-0-op-s-is-001
+        - operation-name: /v1/check-connection-status-of-mount-point
+          uuid: mo-1-0-0-op-s-is-002
+        - operation-name: /v1/add-mount-point
+          uuid: mo-1-0-0-op-s-is-003
+        - operation-name: /v1/update-mount-point
+          uuid: mo-1-0-0-op-s-is-004
+        - operation-name: /v1/delete-mount-point
+          uuid: mo-1-0-0-op-s-is-005
+
+      ## Controller CRUD operations
+        - operation-name: /v1/provide-list-of-controllers
+          uuid: mo-1-0-0-op-s-is-010
+        - operation-name: /v1/add-controller
+          uuid: mo-1-0-0-op-s-is-011
+        - operation-name: /v1/update-controller-status
+          uuid: mo-1-0-0-op-s-is-012
+        - operation-name: /v1/delete-controller
+          uuid: mo-1-0-0-op-s-is-013
+
+      ##  List of supported devices CRUD operations
+        - operation-name: /v1/provide-list-of-supported-devices
+          uuid: mo-1-0-0-op-s-is-020
+        - operation-name: /v1/add-supported-device
+          uuid: mo-1-0-0-op-s-is-021
+        - operation-name: /v1/edit-supported-device
+          uuid: mo-1-0-0-op-s-is-021
+        - operation-name: /v1/delete-supported-device
+          uuid: mo-1-0-0-op-s-is-023
+
+      ## Notifications
+        - operation-name: /v1/notify-about-new-mount-point
+          uuid: mo-1-0-0-op-s-is-030
+        - operation-name: /v1/notify-acceptance-ready-link-endpoint
+          uuid: mo-1-0-0-op-s-is-031
+
+      ## Other services
+   ##   - operation-name: /v1/perform-connection-test
+   ##     uuid: mo-1-0-0-op-s-is-000
+
+
   http-server:
-    own-application-name:
-    own-release-number:
+    own-application-name: MountingOrchestrator
+    own-release-number: 1.0.0
     uuid: mo-1-0-0-http-s-000
   tcp-server:
     - description: Without TLS layer
       local-protocol: http
       own-ip-address: 127.0.0.1
-      own-tcp-port:
+      own-tcp-port: 4010
       uuid: mo-1-0-0-tcp-s-000
 
 
@@ -258,3 +301,109 @@ clients:
       service:
         basic:
         individual:
+
+  - http-client:
+      application-name: ConnectionPreparation
+      release-number: 1.0.0
+      uuid: mo-1-0-0-http-c-cp-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4021
+      uuid: 
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: MediatorManager
+      release-number: 1.0.0
+      uuid: mo-1-0-0-http-c-mm-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4006
+      uuid: mo-1-0-0-tcp-c-mm-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: LinkIdIntoLtpWriter
+      release-number: 1.0.0
+      uuid: 
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4006
+      uuid: 
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: MicroWaveDeviceGatekeeper
+      release-number: 1.0.2
+    uuid: mo-1-0-0-http-c-mwdg-1-0-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4014
+      uuid: mo-1-0-0-tcp-c-mwdg-1-0-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+        - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}/logical-termination-point={uuid}/layer-protocol={localId}/air-interface-2-0:air-interface-pac/air-interface-configuration/performance-monitoring-is-on
+          uuid: aptp-1-1-0-op-c-is-mwdg-1-0-2-op-s-is-239
+
+  - http-client:
+    application-name: PerformanceManagement
+    release-number: 
+    uuid: mo-1-
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 
+      uuid: 
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+        - operation-name:
+
+  - http-client:
+    application-name: AccessPlanningToolProxy
+    release-number: 1.0.1
+    uuid: mo-1-0-0-http-c-aptp-1-1-1-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4020
+      uuid: mo-1-0-0-tcp-c-aptp-1-1-1-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+        - operation-name: 
