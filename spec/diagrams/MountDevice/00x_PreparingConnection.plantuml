@@ -1,0 +1,34 @@
+@startuml 00x_PreparingConnection
+skinparam responseMessageBelowArrow true
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "   CP://v1/prepare-connection-at-ericsson-traffic-node\nor    CP://v1/prepare-connection-at-ericsson-ml6352\nor    CP://v1/prepare-connection-at-ericsson-ml6600\nor    CP://v1/prepare-connection-at-huawei\nor    CP://v1/prepare-connection-at-siae-alcp2e\nor    CP://v1/prepare-connection-at-siae-ags20\nor    CP://v1/prepare-connection-at-siae-alfo80" as CP
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+activate MO
+
+group Validate requested device to be mounted against list of DeviceType instances
+note over MO
+In Case the combination {deviceType} + {manufacturerName} is not found among the existing instances of the DeviceProfile
+end note
+MO --> APTP: 400: Invalid Request
+end group
+
+group Perform ping and SNMP Test 
+note over MO
+If combination {deviceType} + {manufacturerName} matches one of the existing instances of the DeviceTypeProfile,
+perform the corresponding connection tests based on the DeviceTypeCapabilities
+end note
+note over MO
+In Case at least one the corresponding mandatory tests fails
+end note
+MO --> APTP: 404: Not Found
+end group
+
+group Call the appropriate service at CP
+MO -> CP: {deviceIp} (apiKeyAuth)
+end group
+CP --> MO: 204

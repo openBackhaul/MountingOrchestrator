@@ -1,0 +1,20 @@
+@startuml 022_WritingLinkIdIntoLtp
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesWritingLinkIdIntoLtp
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "LILW://add-link-id" as LILW
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MO -> LILW: {mountName, mountNameBseite?, ?...  } (apiKeyAuth)
+
+
+deactivate MO
+
+@enduml
