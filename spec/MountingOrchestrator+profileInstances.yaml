@@ -174,3 +174,52 @@ profile-instances:
       string-value: ## TODO: Add current value of the attribute
 
   ## TODO: Potentially add further instances of StringProfile
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-000'
+    capability:
+      device-type: 'MLTN'
+      manufacturer-name: 'Ericsson'
+      snmp-test-required: true
+      http-test-required: true
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-001'
+    capability:
+      device-type: 'ML6600'
+      manufacturer-name: 'Ericsson'
+      snmp-test-required: true
+      http-test-required: false
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-002'
+    capability:
+      device-type: 'ML6352'
+      manufacturer-name: 'Ericsson'
+      snmp-test-required: false
+      http-test-required: false
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-003'
+    capability:
+      device-type: 'AGS20'
+      manufacturer-name: 'SIAE'
+      snmp-test-required: true
+      http-test-required: false
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-004'
+    capability:
+      device-type: 'AGS20L'
+      manufacturer-name: 'SIAE'
+      snmp-test-required: true
+      http-test-required: false
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-003'
+    capability:
+      device-type: 'AGS20'
+      manufacturer-name: 'SIAE'
+      snmp-test-required: true
+      http-test-required: false
+
