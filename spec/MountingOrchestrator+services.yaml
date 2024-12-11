@@ -52,15 +52,15 @@ servers:
           uuid: mo-1-0-0-op-s-bs-005
       individual:
       ## Device CRUD operations
-        - operation-name: /v1/provide-list-of-mount-points
+        - operation-name: /v1/provide-list-of-devices
           uuid: mo-1-0-0-op-s-is-001
-        - operation-name: /v1/check-connection-status-of-mount-point
+        - operation-name: /v1/check-connection-status-of-device
           uuid: mo-1-0-0-op-s-is-002
-        - operation-name: /v1/add-mount-point
+        - operation-name: /v1/mount-device
           uuid: mo-1-0-0-op-s-is-003
-        - operation-name: /v1/update-mount-point
+        - operation-name: /v1/update-device
           uuid: mo-1-0-0-op-s-is-004
-        - operation-name: /v1/delete-mount-point
+        - operation-name: /v1/unmount-device
           uuid: mo-1-0-0-op-s-is-005
 
       ## Controller CRUD operations
@@ -78,13 +78,11 @@ servers:
           uuid: mo-1-0-0-op-s-is-020
         - operation-name: /v1/add-supported-device
           uuid: mo-1-0-0-op-s-is-021
-        - operation-name: /v1/edit-supported-device
-          uuid: mo-1-0-0-op-s-is-021
         - operation-name: /v1/delete-supported-device
-          uuid: mo-1-0-0-op-s-is-023
+          uuid: mo-1-0-0-op-s-is-022
 
       ## Notifications
-        - operation-name: /v1/notify-about-new-mount-point
+        - operation-name: /v1/notify-about-new-mounted-device
           uuid: mo-1-0-0-op-s-is-030
         - operation-name: /v1/notify-acceptance-ready-link-endpoint
           uuid: mo-1-0-0-op-s-is-031
@@ -109,26 +107,13 @@ servers:
 clients:
 
   - http-client:
-      application-name: ElasticSearch
-      release-number: 1.0.0
-      uuid: mo-1-0-0-http-c-es-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 3015
-      uuid: mo-1-0-0-tcp-c-es-1-0-0-000
-    elasticsearch-client:
-      uuid: mo-1-0-0-es-c-es-1-0-0-000
-      index-alias:
-
-  - http-client:
       application-name: OldRelease
       release-number:
       uuid: mo-1-0-0-http-c-or-1-0-0-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4010
       uuid: mo-1-0-0-tcp-c-or-1-0-0-000
     operation-clients:
       own-oam:
@@ -147,7 +132,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port:
+      tcp-port: 4010
       uuid: mo-1-0-0-tcp-c-nr-1-0-0-000
     operation-clients:
       own-oam:
@@ -302,6 +287,25 @@ clients:
         basic:
         individual:
 
+##  - http-client:
+##      application-name: PerformanceManagement
+##      release-number: 1.0.0
+##      uuid: mo-1-0-0-http-c-pm-2-1-2-000
+##    tcp-client:
+##      remote-protocol: http
+##      ip-address: 127.0.0.1
+##      tcp-port: 3038
+##      uuid: mo-1-0-0-tcp-c-pm-2-1-2-000
+##    operation-clients:
+##      own-oam:
+##        basic:
+##        individual:
+##      service:
+##        basic:
+##          - operation-name:
+##            uuid:
+##        individual:
+
   - http-client:
       application-name: ConnectionPreparation
       release-number: 1.0.0
@@ -318,6 +322,20 @@ clients:
       service:
         basic:
         individual:
+          - operation-name: /v1/prepare-connection-at-ericsson-traffic-node
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-000
+          - operation-name: /v1/prepare-connection-at-ericsson-ml6352
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-010
+          - operation-name: /v1/prepare-connection-at-ericsson-ml6600
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-020
+          - operation-name: /v1/prepare-connection-at-huawei
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-030
+          - operation-name: /v1/prepare-connection-at-siae-alcp2e
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-040
+          - operation-name: /v1/prepare-connection-at-siae-ags20
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-050
+          - operation-name: /v1/prepare-connection-at-siae-alfo80
+            uuid: mo-1-0-0-op-c-is-cp-1-0-0-060
 
   - http-client:
       application-name: MediatorManager
@@ -335,6 +353,12 @@ clients:
       service:
         basic:
         individual:
+          - operation-name: /v1/provide-mediator-for-this-device ## TO DO: Verify uuids
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-op-s-is-xxx
+          - operation-name: /v1/dismantle-mediator-instance
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-xxx
+     ##   - operation-name: /v1/export-mediator-device-instance-list
+      ##    uuid: mo-1-0-0-op-c-is-mm-1-0-0-xxx
 
   - http-client:
       application-name: LinkIdIntoLtpWriter
@@ -343,7 +367,7 @@ clients:
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 4006
+      tcp-port: 4022
       uuid: 
     operation-clients:
       own-oam:
@@ -352,7 +376,9 @@ clients:
       service:
         basic:
         individual:
-
+        - operation-name: /v1/add-link-id
+          uuid: mo-1-0-0-op-c-is-lilw-1-0-0-op-s-is-000
+          
   - http-client:
       application-name: MicroWaveDeviceGatekeeper
       release-number: 1.0.2
@@ -369,26 +395,11 @@ clients:
       service:
         basic:
         individual:
+        - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}/equipment-augment-1-0:control-construct-pac/external-label
+          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-101
         - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}/logical-termination-point={uuid}/layer-protocol={localId}/air-interface-2-0:air-interface-pac/air-interface-configuration/performance-monitoring-is-on
-          uuid: aptp-1-1-0-op-c-is-mwdg-1-0-2-op-s-is-239
+          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-239
 
-  - http-client:
-    application-name: PerformanceManagement
-    release-number: 
-    uuid: mo-1-
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 
-      uuid: 
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-        - operation-name:
 
   - http-client:
     application-name: AccessPlanningToolProxy
@@ -406,4 +417,23 @@ clients:
       service:
         basic:
         individual:
-        - operation-name: 
+        - operation-name: ## TO DO  Potentially add receiver service for notications regarding acceptance-ready devices
+
+  - http-client:
+      application-name: OpenDayLight
+      release-number: 4.0.2
+      uuid: mwdi-1-2-1-http-c-odl-4-0-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 1.1.1.1
+      tcp-port: 1001
+      uuid: mo-1-0-0-tcp-c-odl-4-0-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          - operation-name: /{controllerInternalPathToMountPoint}/node={mountName}/yang-ext:mount/core-model-1-4:control-construct
+            uuid: mo-1-0-0-op-c-is-odl-4-0-2-400
