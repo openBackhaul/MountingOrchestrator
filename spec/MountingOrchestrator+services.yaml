@@ -353,12 +353,10 @@ clients:
       service:
         basic:
         individual:
-          - operation-name: /v1/provide-mediator-for-this-device ## TO DO: Verify uuids
-            uuid: mo-1-0-0-op-c-is-mm-1-0-0-op-s-is-xxx
+          - operation-name: /v1/provide-mediator-instance
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-op-s-is-003
           - operation-name: /v1/dismantle-mediator-instance
-            uuid: mo-1-0-0-op-c-is-mm-1-0-0-xxx
-     ##   - operation-name: /v1/export-mediator-device-instance-list
-      ##    uuid: mo-1-0-0-op-c-is-mm-1-0-0-xxx
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
 
   - http-client:
       application-name: LinkIdIntoLtpWriter
@@ -376,8 +374,8 @@ clients:
       service:
         basic:
         individual:
-        - operation-name: /v1/add-link-id
-          uuid: mo-1-0-0-op-c-is-lilw-1-0-0-op-s-is-000
+ ##     - operation-name: /v1/add-link-id
+   ##     uuid: mo-1-0-0-op-c-is-lilw-1-0-0-op-s-is-000
           
   - http-client:
       application-name: MicroWaveDeviceGatekeeper
@@ -403,7 +401,7 @@ clients:
 
   - http-client:
     application-name: AccessPlanningToolProxy
-    release-number: 1.0.1
+    release-number: 1.1.2
     uuid: mo-1-0-0-http-c-aptp-1-1-1-000
     tcp-client:
       remote-protocol: http
@@ -417,7 +415,28 @@ clients:
       service:
         basic:
         individual:
-        - operation-name: ## TO DO  Potentially add receiver service for notications regarding acceptance-ready devices
+        ## TO DO  Potentially add receiver service for outcome of mouting request
+    ##  - operation-name: /v1/receive-outcome-of-mounting-request
+    ##    uuid: mo-1-0-0-op-c-is-aptp-1-1-2-050
+
+  - http-client:
+      application-name: MicroWaveDeviceInventory
+      release-number: 1.1.2
+      uuid: aptp-1-1-0-http-c-mwdi-1-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 4015
+      uuid: aptp-1-1-0-tcp-c-mwdi-1-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}
+            uuid: aptp-1-1-0-op-c-is-mwdi-1-1-2-400
 
   - http-client:
       application-name: OpenDayLight
