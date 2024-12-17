@@ -60,6 +60,9 @@ profiles:
       manufacturer-name: string
       snmp-test-required: boolean
       http-test-required: boolean
+    configuration:
+      connection-preparation-service: string
+      ##test-http-request: string
 
 
 ## TODO: Add further Profile definitions, if required
