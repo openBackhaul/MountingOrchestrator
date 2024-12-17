@@ -2,6 +2,7 @@
 skinparam responseMessageBelowArrow true
 
 participant "APTP" as APTP
+participant "APTP://v1/receive-outcome-of-mounting-request" as APTP_receive
 participant "MO://v1/mount-device" as MO
 participant "   CP://v1/prepare-connection-at-ericsson-traffic-node\nor    CP://v1/prepare-connection-at-ericsson-ml6352\nor    CP://v1/prepare-connection-at-ericsson-ml6600\nor    CP://v1/prepare-connection-at-huawei\nor    CP://v1/prepare-connection-at-siae-alcp2e\nor    CP://v1/prepare-connection-at-siae-ags20\nor    CP://v1/prepare-connection-at-siae-alfo80" as CP
 
@@ -13,14 +14,20 @@ activate MO
 group Validate requested device to be mounted against list of DeviceType instances
 note over MO
 In Case the combination {deviceType} + {manufacturerName} is not found among the existing instances of the DeviceProfile
+**/core-model-1-4:control-construct/profile-collection/profile=mo-1-0-0-device-p-xxx/device-profile-1-0:device-profile-pac/device-profile-capability/device-type**
+**/core-model-1-4:control-construct/profile-collection/profile=mo-1-0-0-device-p-xxx/device-profile-1-0:device-profile-pac/device-profile-capability/manufacturer-name**
 end note
-MO --> APTP: 400: Invalid Request
+MO --> APTP: 406: Invalid Not Acceptable
 end group
 
-group Perform ping and SNMP Test 
+group Perform ping / SNMP / HTTP Test(s) 
 note over MO
 If combination {deviceType} + {manufacturerName} matches one of the existing instances of the DeviceTypeProfile,
-perform the corresponding connection tests based on the DeviceTypeCapabilities
+perform the ping test and corresponding additional connection tests based on the DeviceTypeCapability of the matching ProfileInstance:
+**/core-model-1-4:control-construct/profile-collection/profile=mo-1-0-0-device-p-xxx/device-profile-1-0:device-profile-pac/device-profile-capability/snmp-test-required**
+**/core-model-1-4:control-construct/profile-collection/profile=mo-1-0-0-device-p-xxx/device-profile-1-0:device-profile-pac/device-profile-capability/http-test-required**
+
+
 end note
 note over MO
 In Case at least one the corresponding mandatory tests fails
@@ -28,7 +35,15 @@ end note
 MO --> APTP: 404: Not Found
 end group
 
-group Call the appropriate service at CP
+MO --> APTP: 202: Request Accepted {requestId?}
+
+group Call the service at CP
+note over MO
+Call appropriate CP service for the device after
+**/core-model-1-4:control-construct/profile-collection/profile=mo-1-0-0-device-p-xxx/device-profile-1-0:device-profile-pac/device-profile-configuration/connection-preparation-service**
+end note
 MO -> CP: {deviceIp} (apiKeyAuth)
 end group
 CP --> MO: 204
+
+MO -> APTP_receive: {requestId, mountingOutcome} (apiKeyAuth)
