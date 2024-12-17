@@ -228,6 +228,26 @@ profile-instances:
   - profile-name: 'DeviceTypeProfile'
     uuid: 'mo-1-0-0-device-p-005'
     capability:
+      device-type: 'Alcp2E'
+      manufacturer-name: 'SIAE'
+      snmp-test-required: true
+      http-test-required: false
+    configuration:
+      connection-preparation-service: '/v1/prepare-connection-at-siae-alcp2e'
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-006'
+    capability:
+      device-type: 'ALFO80'
+      manufacturer-name: 'SIAE'
+      snmp-test-required: true
+      http-test-required: false
+    configuration:
+      connection-preparation-service: '/v1/prepare-connection-at-siae-alfo80'
+
+  - profile-name: 'DeviceTypeProfile'
+    uuid: 'mo-1-0-0-device-p-007'
+    capability:
       device-type: 'Huawei RTN-950'
       manufacturer-name: 'Huawei'
       snmp-test-required: true
@@ -236,7 +256,7 @@ profile-instances:
       connection-preparation-service: /v1/prepare-connection-at-huawei
 
   - profile-name: 'DeviceTypeProfile'
-    uuid: 'mo-1-0-0-device-p-006'
+    uuid: 'mo-1-0-0-device-p-008'
     capability:
       device-type: 'Huawei RTN-905'
       manufacturer-name: 'Huawei'
@@ -246,7 +266,7 @@ profile-instances:
       connection-preparation-service: /v1/prepare-connection-at-huawei
 
   - profile-name: 'DeviceTypeProfile'
-    uuid: 'mo-1-0-0-device-p-007'
+    uuid: 'mo-1-0-0-device-p-009'
     capability:
       device-type: 'Huawei RTN-380A'
       manufacturer-name: 'Huawei'
