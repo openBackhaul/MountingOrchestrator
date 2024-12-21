@@ -161,6 +161,16 @@ profile-instances:
     configuration:
       integer-value: ## TODO: Add current value of the attribute
 
+  - profile-name: 'IntegerProfile'
+    uuid: 'mo-1-0-0-integer-p-000'
+    capability:
+      integer-name: 'NumberOfPings'
+      purpose: 'Number of pings to be send during the connection test'
+      minimum: 3
+      maximum: 10
+    configuration:
+      integer-value: 5
+
   ## TODO: Potentially add further instances of IntegerProfile
 
 
@@ -181,7 +191,7 @@ profile-instances:
       device-type: 'MLTN'
       manufacturer-name: 'Ericsson'
       snmp-test-required: true
-      http-test-required: true
+      https-test-required: true
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-ericsson-traffic-node'
 
@@ -191,7 +201,7 @@ profile-instances:
       device-type: 'ML6600'
       manufacturer-name: 'Ericsson'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-ericsson-ml6600'
 
@@ -201,7 +211,7 @@ profile-instances:
       device-type: 'ML6352'
       manufacturer-name: 'Ericsson'
       snmp-test-required: false
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-ericsson-ml6352'
 
@@ -211,7 +221,7 @@ profile-instances:
       device-type: 'AGS20'
       manufacturer-name: 'SIAE'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-siae-ags20'
 
@@ -221,7 +231,7 @@ profile-instances:
       device-type: 'AGS20L'
       manufacturer-name: 'SIAE'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-siae-ags20'
 
@@ -231,7 +241,7 @@ profile-instances:
       device-type: 'Alcp2E'
       manufacturer-name: 'SIAE'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-siae-alcp2e'
 
@@ -241,7 +251,7 @@ profile-instances:
       device-type: 'ALFO80'
       manufacturer-name: 'SIAE'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: '/v1/prepare-connection-at-siae-alfo80'
 
@@ -251,7 +261,7 @@ profile-instances:
       device-type: 'Huawei RTN-950'
       manufacturer-name: 'Huawei'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: /v1/prepare-connection-at-huawei
 
@@ -261,7 +271,7 @@ profile-instances:
       device-type: 'Huawei RTN-905'
       manufacturer-name: 'Huawei'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: /v1/prepare-connection-at-huawei
 
@@ -271,6 +281,6 @@ profile-instances:
       device-type: 'Huawei RTN-380A'
       manufacturer-name: 'Huawei'
       snmp-test-required: true
-      http-test-required: false
+      https-test-required: false
     configuration:
       connection-preparation-service: /v1/prepare-connection-at-huawei
