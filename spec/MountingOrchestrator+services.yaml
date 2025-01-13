@@ -81,11 +81,6 @@ servers:
         - operation-name: /v1/delete-supported-device
           uuid: mo-1-0-0-op-s-is-022
 
-      ## Notifications
-        - operation-name: /v1/notify-about-new-mounted-device
-          uuid: mo-1-0-0-op-s-is-030
-        - operation-name: /v1/notify-acceptance-ready-link-endpoint
-          uuid: mo-1-0-0-op-s-is-031
 
       ## Other services
    ##   - operation-name: /v1/perform-connection-test
