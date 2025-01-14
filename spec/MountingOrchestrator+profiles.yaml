@@ -59,7 +59,7 @@ profiles:
       device-type: string
       manufacturer-name: string
       snmp-test-required: boolean
-      http-test-required: boolean
+      https-test-required: boolean
     configuration:
       connection-preparation-service: string
       ##test-http-request: string
