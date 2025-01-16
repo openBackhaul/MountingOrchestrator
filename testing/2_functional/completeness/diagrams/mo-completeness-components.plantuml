@@ -1,0 +1,17 @@
+@startuml mo-completeness-components
+
+skinparam componentStyle rectangle
+
+title
+MountingOrchestrator+test.functional.completeness
+end title
+
+package "completeness" {
+  component [<u>Postman</u>\n\nMountingOrchestrator+test.completeness.json] as TCC #Orange 
+  component [<u>Application under Test</u>\n\nMountingOrchestrator] as AUT #LightBlue 
+
+  TCC -> AUT
+
+}
+
+@enduml

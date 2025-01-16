@@ -1,0 +1,331 @@
+﻿openapi: 3.0.0
+info:
+  title: ConnectionPreparation+simu
+  version: 1.0.0
+
+paths:
+########################################################################################################################
+#   Service Layer - Individual Part
+########################################################################################################################
+  /v1/prepare-connection-at-ericsson-traffic-node:
+    post:
+      operationId: prepareConnectionAtEricssonTrafficNode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at Ericsson MLTN'
+  /v1/prepare-connection-at-ericsson-ml6352:
+    post:
+      operationId: prepareConnectionAtMl6352
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at Ericsson ML6352'
+  /v1/prepare-connection-at-ericsson-ml6600:
+    post:
+      operationId: prepareConnectionAtMl6600
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at Ericsson ML6600'
+  /v1/prepare-connection-at-huawei:
+    post:
+      operationId: prepareConnectionAtHuawei
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at Huawei'
+  /v1/prepare-connection-at-siae-alcp2e:
+    post:
+      operationId: prepareConnectionAtSiaeAlcp2e
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at SIAE ALCP2E'
+  /v1/prepare-connection-at-siae-ags20:
+    post:
+      operationId: prepareConnectionAtSiaeAgs20
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at SIAE AGS20'
+  /v1/prepare-connection-at-siae-alfo80:
+    post:
+      operationId: prepareConnectionAtSIAEALFO80
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-ip
+              properties:
+                device-ip:
+                  type: string
+            example:
+              device-ip: '127.0.0.1'
+      responses:
+        '204':
+          description: 'Connection prepared at SIAE ALFO80'
+
+########################################################################################################################
+#   Common Components
+########################################################################################################################
+components:
+  parameters:
+    user:
+      name: user
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 'User Name'
+      description: 'User identifier from the system starting the service call'
+    originator:
+      name: originator
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 3
+        example: 'Resolver'
+      description: >
+        'Identification for the system consuming the API, as defined in
+         [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+    x-correlator:
+      name: x-correlator
+      in: header
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+        example: '550e8400-e29b-11d4-a716-446655440000'
+      description: 'UUID for the service execution flow that allows to correlate requests and responses'
+    trace-indicator:
+      name: trace-indicator
+      in: header
+      required: true
+      schema:
+        type: string
+        pattern: '^([0-9]+)(\.([0-9]+))*$'
+        example: '1.3.1'
+      description: 'Sequence of request numbers along the flow'
+    customer-journey:
+      name: customer-journey
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 'Unknown value'
+      description: 'Holds information supporting customer’s journey to which the execution applies'
+  responses:
+    responseForErroredServiceRequests:
+      description: 'Response in case of errored service requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '502':
+      description: 'Response in case the server is acting as a gateway or proxy and received an invalid response from the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 502
+                maximum: 502
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '531':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to authenticate at the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 531
+                maximum: 531
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Authentication at upstream server failed.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    '532':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to connect to the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 532
+                maximum: 532
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Upstream server not responding.'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    responseForErroredOamRequests:
+      description: 'Response in case of errored OaM requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+  schemas:
+    errorDescription:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: operation-key
+    basicAuth:
+      type: http
+      scheme: basic

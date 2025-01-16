@@ -1,0 +1,98 @@
+@startuml MountingOrchestrator+diagram.completeness
+skinparam responseMessageBelowArrow true
+
+title
+MountingOrchestrator+test.completeness
+end title
+
+participant "Postman\n" as Postman
+participant "Data\n" as Data
+participant "Collection\n" as Collection
+
+participant "/v1/prepare-connection-\n     at-ericsson-traffic-node" as MLTN
+participant "/v1/prepare-connection-\n     at-ericsson-ml6352" as ML6352
+participant "/v1/prepare-connection-\n     at-ericsson-ml6600" as ML6600
+participant "/v1/prepare-connection-\n     at-huawei" as HUA
+participant "/v1/prepare-connection-\n     at-siae-alcp2e" as ALCP2E
+participant "/v1/prepare-connection-\n     at-siae-ags20" as AGS20
+participant "/v1/prepare-connection-\n     at-siae-alfo80" as ALFO80
+
+
+group Preparation
+  Data --\\o Postman : {servers, device-ip}
+  activate Postman
+  Postman --\\o Collection : {servers, device-ip}
+end
+
+
+note over Postman #Red
+  Out dated copy of example
+end note
+
+
+group /v1/prepare-connection-at-ericsson-traffic-node
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> MLTN : {device-ip}
+  Postman <-- MLTN : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-ericsson-ml6352
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> ML6352 : {device-ip}
+  Postman <-- ML6352 : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-ericsson-ml6600
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> ML6600 : {device-ip}
+  Postman <-- ML6600 : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-huawei
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> HUA : {device-ip}
+  Postman <-- HUA : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-siae-alcp2e
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> ALCP2E : {device-ip}
+  Postman <-- ALCP2E : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-siae-ags20
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> AGS20 : {device-ip}
+  Postman <-- AGS20 : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/prepare-connection-at-siae-alfo80
+  Collection --\\o Postman : {servers, device-ip}
+  Postman -> ALFO80 : {device-ip}
+  Postman <-- ALFO80 : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+deactivate Postman
+
+@enduml

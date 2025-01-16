@@ -1,0 +1,42 @@
+[
+	{
+		"mode": "debug",
+		"serverList": [
+			{
+				"serverName": "dummy",
+				"dummyUri": "ping.openBackhaul.com"
+			},
+			{
+				"serverName": "MountingOrchestrator",
+				"server": "http://127.0.0.1:4010",
+				"pathToControlConstruct": "",
+				"authorizationCode": "",
+				"operationKey": "Operation key not yet provided.",
+				"userName": "Thorsten Heinze",
+				"originator": "MountingOrchestrator+test.completeness",
+				"xCorrelator": "00000000-0000-0000-0000-000000000000",
+				"traceIndicator": "1",
+				"customerJourney": ""
+			},
+			{
+				"serverName": "MountingOrchestrator+simu.completeness",
+				"server": "http://localhost:3000",
+				"pathToControlConstruct": "",
+				"authorizationCode": "",
+				"operationKey": "Operation key not yet provided.",
+				"userName": "Thorsten Heinze",
+				"originator": "MountingOrchestrator+test.completeness",
+				"xCorrelator": "00000000-0000-0000-0000-000000000000",
+				"traceIndicator": "1",
+				"customerJourney": ""
+			}
+		],
+		"collectionInputList": [
+			{
+				"collectionName": "mo",
+				"serverToBeApplied": "MountingOrchestrator",
+				"deviceIp": "127.0.0.1"
+			}
+		]
+	}
+]
