@@ -422,7 +422,7 @@ forwardings:
         uuid: mo-1-0-0-op-c-bm-alt-2-1-2-005
 
 
-  - forwarding-name: RequestForMountingDeviceCausesRequestingMediatorInstance
+  - forwarding-name: RequestForMountingDeviceCausesRequestingNetconfInterface
     uuid: mo-1-0-0-op-fc-is-001
     forwarding-type: InvariantProcessSnippet
     management-requests:

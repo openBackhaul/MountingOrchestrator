@@ -1,8 +1,8 @@
-@startuml MountDevice
+@startuml 001_RequestingNetconfInterface
 skinparam responseMessageBelowArrow true
 
 title
-MountDevice
+RequestForMountingDeviceCausesRequestingNetconfInterface
 end title
 
 participant "APTP" as APTP
@@ -14,7 +14,7 @@ APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
 
 MO -> MM: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
 
-MM --> MO: 200: {mountName, mediatorIpAddress, mediatorInstanceNetconfPort} (apiKeyAuth)
+MM --> MO: 200: {mountName, netconfInterfaceIpAddress, NetconfPort} (apiKeyAuth)
 
 
 @enduml
