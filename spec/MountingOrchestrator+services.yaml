@@ -51,11 +51,11 @@ servers:
         - operation-name: /docs
           uuid: mo-1-0-0-op-s-bs-005
       individual:
-      ## Device CRUD operations
-        - operation-name: /v1/provide-list-of-devices
-          uuid: mo-1-0-0-op-s-is-001
-        - operation-name: /v1/check-connection-status-of-device
-          uuid: mo-1-0-0-op-s-is-002
+      ## Device operations
+##      - operation-name: /v1/provide-list-of-devices
+##        uuid: mo-1-0-0-op-s-is-001
+##      - operation-name: /v1/check-connection-status-of-device
+##        uuid: mo-1-0-0-op-s-is-002
         - operation-name: /v1/mount-device
           uuid: mo-1-0-0-op-s-is-003
         - operation-name: /v1/update-device
@@ -63,7 +63,7 @@ servers:
         - operation-name: /v1/unmount-device
           uuid: mo-1-0-0-op-s-is-005
 
-      ## Controller CRUD operations
+      ## Controller operations
         - operation-name: /v1/provide-list-of-controllers
           uuid: mo-1-0-0-op-s-is-010
         - operation-name: /v1/add-controller
@@ -73,13 +73,13 @@ servers:
         - operation-name: /v1/delete-controller
           uuid: mo-1-0-0-op-s-is-013
 
-      ##  List of supported devices CRUD operations
-        - operation-name: /v1/provide-list-of-supported-devices
-          uuid: mo-1-0-0-op-s-is-020
-        - operation-name: /v1/add-supported-device
-          uuid: mo-1-0-0-op-s-is-021
-        - operation-name: /v1/delete-supported-device
-          uuid: mo-1-0-0-op-s-is-022
+      ##  List of supported devices operations => This can be first done via OAM/CONFIGfile and not through exposed services
+##      - operation-name: /v1/provide-list-of-supported-devices
+##        uuid: mo-1-0-0-op-s-is-020
+##      - operation-name: /v1/add-supported-device
+##        uuid: mo-1-0-0-op-s-is-021
+##      - operation-name: /v1/delete-supported-device
+##        uuid: mo-1-0-0-op-s-is-022
 
 
       ## Other services
@@ -302,37 +302,6 @@ clients:
 ##        individual:
 
   - http-client:
-      application-name: ConnectionPreparation
-      release-number: 1.0.0
-      uuid: mo-1-0-0-http-c-cp-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 4021
-      uuid: 
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/prepare-connection-at-ericsson-traffic-node
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-000
-          - operation-name: /v1/prepare-connection-at-ericsson-ml6352
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-010
-          - operation-name: /v1/prepare-connection-at-ericsson-ml6600
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-020
-          - operation-name: /v1/prepare-connection-at-huawei
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-030
-          - operation-name: /v1/prepare-connection-at-siae-alcp2e
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-040
-          - operation-name: /v1/prepare-connection-at-siae-ags20
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-050
-          - operation-name: /v1/prepare-connection-at-siae-alfo80
-            uuid: mo-1-0-0-op-c-is-cp-1-0-0-060
-
-  - http-client:
       application-name: MediatorManager
       release-number: 1.0.0
       uuid: mo-1-0-0-http-c-mm-1-0-0-000
@@ -349,7 +318,7 @@ clients:
         basic:
         individual:
           - operation-name: /v1/provide-mediator-instance
-            uuid: mo-1-0-0-op-c-is-mm-1-0-0-op-s-is-003
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
           - operation-name: /v1/dismantle-mediator-instance
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
 
@@ -434,14 +403,14 @@ clients:
             uuid: aptp-1-1-0-op-c-is-mwdi-1-1-2-400
 
   - http-client:
-      application-name: OpenDayLight
+      application-name: OpenDayLightMaster
       release-number: 4.0.2
-      uuid: mwdi-1-2-1-http-c-odl-4-0-2-000
+      uuid: mo-1-0-0-http-c-odlm-4-0-2-000
     tcp-client:
       remote-protocol: http
-      ip-address: 1.1.1.1
+      ip-address: 127.0.0.1
       tcp-port: 1001
-      uuid: mo-1-0-0-tcp-c-odl-4-0-2-000
+      uuid: mo-1-0-0-tcp-c-odlm-4-0-2-000
     operation-clients:
       own-oam:
         basic:
@@ -449,5 +418,24 @@ clients:
       service:
         basic:
         individual:
-          - operation-name: /{controllerInternalPathToMountPoint}/node={mountName}/yang-ext:mount/core-model-1-4:control-construct
-            uuid: mo-1-0-0-op-c-is-odl-4-0-2-400
+          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+            uuid: mo-1-0-0-op-c-is-odlm-4-0-2-000
+
+  - http-client:
+      application-name: OpenDayLightSlave
+      release-number: 4.0.2
+      uuid: mo-1-0-0-http-c-odls-4-0-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 1002
+      uuid: mo-1-0-0-tcp-c-odls-4-0-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+            uuid: mo-1-0-0-op-c-is-odls-4-0-2-000
