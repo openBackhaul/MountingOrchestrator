@@ -15,13 +15,13 @@ participant "<i>RequestForMountingDeviceCauses\n<i>WritingLinkIdIntoLtp</i>" as 
 participant "<i>RequestForMountingDeviceCauses\n<i>WritingMountNameIntoExternalLabel</i>" as ExternalLabel
 participant "<i>RequestForMountingDeviceCauses\n<i>TurningPerformanceMonitoringOn</i>" as PmOn
 participant "<i>RequestForMountingDeviceCauses\n<i>LoadingControlConstructInCache</i>" as MWDI
-
+participant "<i>RequestForMountingDeviceCauses\n<i>SendingOutcomeOfMountingRequests</i>" as Outcome
 APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
 MO --> APTP: 202: {requestId}
 
 activate MO
 
-MM --> MO: 200: {mediatorInstanceIpAddress, mediatorInstanceNetconfPort}
+MM --> MO: 200: {mediatorInstanceIpAddress,\n mediatorInstanceNetconfPort}
 ODLM --> MO: 204
 ODLS --> MO: 204
 LinkId --> MO: 204
@@ -29,7 +29,7 @@ ExternalLabel --> MO: 204
 PmOn --> MO: 204
 MWDI --> MO: 200 {entire CC from 'live'}
 
-MO -> APTP_receive: {requestId, 200, 'Mounting of device successful'}
+Outcome-> APTP_receive: {requestId, 200, 'Mounting of device successful'}
 
 deactivate MO
 

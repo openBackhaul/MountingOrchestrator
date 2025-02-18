@@ -1,0 +1,21 @@
+@startuml 011_SendingOutcomeOfMountingRequests
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesSendingOutcomeOfMountingRequests
+end title
+
+participant "APTP" as APTP
+participant "APTP://v1/receive-outcome-of-mounting-request" as APTP_receive
+participant "MO://v1/mount-device" as MO
+
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MO --> APTP: 202: {requestId}
+
+MO -> APTP_receive: {requestId, 200, 'Mounting of device successful'}
+
+
+@enduml
