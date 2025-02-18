@@ -1,0 +1,18 @@
+@startuml 008_WritingMountNameIntoExternalLabel
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesWritingMountNameIntoExternalLabel
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "MWDG://core-model-1-4:network-control-domain=live/control-construct={mountName}/equipment-augment-1-0:control-construct-pac/external-label" as MWDG
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MO -> MWDG:  PUT: {mountName} (apiKeyAuth)
+MWDG --> MO: 200 /204 ??
+
+@enduml

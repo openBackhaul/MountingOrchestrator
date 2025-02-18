@@ -1,0 +1,21 @@
+@startuml 005_MountingDeviceOnMasterController
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesCallingDeviceOnMasterController
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "RequestForMountingDeviceCausesRequestingMediatorInstance" as MM
+participant "ODLM://rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}" as ODL_Master 
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MM --> MO: {mediatorInstanceIpAddress, mediatorInstanceNetconfPort}
+
+MO -> ODL_Master: PUT: {mountName, \nsleepFactor, maxConnectionAttempts, username, password,mediatorInstanceNetconfPort, mediatorInstanceIp, \n  notificationSubscribe, streamName}
+ODL_Master --> MO: 204?
+
+@enduml

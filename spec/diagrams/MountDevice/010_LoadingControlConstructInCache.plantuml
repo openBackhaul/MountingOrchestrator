@@ -1,0 +1,18 @@
+@startuml 010_LoadingControlConstructInCache
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesLoadingControlConstructInCache
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "MWDI://core-model-1-4:network-control-domain=live/control-construct={mountName}" as MWDI
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MO -> MWDI: {mountName} (apiKeyAuth)
+MWDI --> MO: 200: {entire ControlConstruct from 'live'}
+
+@enduml

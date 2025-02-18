@@ -1,0 +1,18 @@
+@startuml 009_TurningPerformanceMonioringOn
+skinparam responseMessageBelowArrow true
+
+title
+RequestForMountingDeviceCausesTurningPerformanceMonitoringOn
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "MWDG://core-model-1-4:network-control-domain=live/control-construct={mountName}/logical-termination-point={uuid}/layer-protocol={localId}/air-interface-2-0:air-interface-pac/air-interface-configuration/performance-monitoring-is-on" as MWDG
+
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+
+MO -> MWDG:  PUT: {air-interface-2-0:performance-monitoring-is-on: true} (apiKeyAuth)
+MWDG --> MO: 200 /204 ??
+
+@enduml

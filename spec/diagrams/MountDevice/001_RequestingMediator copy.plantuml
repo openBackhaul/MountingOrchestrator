@@ -1,0 +1,35 @@
+@startuml MountDevice
+skinparam responseMessageBelowArrow true
+
+title
+MountDevice
+end title
+
+participant "APTP" as APTP
+participant "MO://v1/mount-device" as MO
+participant "<i>RequestForMountingDeviceCauses\n<i>RequestingMediatorInstance</i>" as MM
+participant "<i>RequestForMountingDeviceCause\n<i>MountingDeviceOnMasterController</i>" as ODLM 
+participant "<i>RequestForMountingDeviceCauses\n<i>MountingDeviceSlaveController</i>" as ODLS
+participant "<i>RequestForMountingDeviceCauses\n<i>WritingLinkIdIntoLtp</i>" as LinkId
+participant "<i>RequestForMountingDeviceCauses\n<i>WritingMountNameIntoExternalLabel</i>" as ExternalLabel
+participant "<i>RequestForMountingDeviceCauses\n<i>TurningPerformanceMonitoringOn</i>" as PmOn
+participant "<i>RequestForMountingDeviceCauses\n<i>LoadingControlConstructInCache</i>" as MWDI
+
+APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
+MO --> APTP: 202: {requestId}
+
+activate MO
+
+MM --> MO: 200: {mediatorInstanceIpAddress, mediatorInstanceNetconfPort}
+ODLM --> MO: 204
+ODLS --> MO: 204
+LinkId --> MO: 204
+ExternalLabel --> MO: 204
+PmOn --> MO: 204
+MWDI --> MO: 200 {entire CC from 'live'}
+
+MO -> APTP: {requestId, 200, 'Mounting of device successful'}
+
+deactivate MO
+
+@enduml

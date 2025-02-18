@@ -1,4 +1,4 @@
-@startuml 022_WritingLinkIdIntoLtp
+@startuml 007_WritingLinkIdIntoLtp
 skinparam responseMessageBelowArrow true
 
 title
