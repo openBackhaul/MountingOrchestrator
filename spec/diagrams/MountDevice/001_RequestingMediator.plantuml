@@ -6,6 +6,7 @@ MountDevice
 end title
 
 participant "APTP" as APTP
+participant "APTP://v1/receive-outcome-of-mounting-request" as APTP_receive
 participant "MO://v1/mount-device" as MO
 participant "<i>RequestForMountingDeviceCauses\n<i>RequestingMediatorInstance</i>" as MM
 participant "<i>RequestForMountingDeviceCause\n<i>MountingDeviceOnMasterController</i>" as ODLM 
@@ -28,7 +29,7 @@ ExternalLabel --> MO: 204
 PmOn --> MO: 204
 MWDI --> MO: 200 {entire CC from 'live'}
 
-MO -> APTP: {requestId, 200, 'Mounting of device successful'}
+MO -> APTP_receive: {requestId, 200, 'Mounting of device successful'}
 
 deactivate MO
 
