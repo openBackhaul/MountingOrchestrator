@@ -326,9 +326,9 @@ clients:
         basic:
         individual:
         - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}/equipment-augment-1-0:control-construct-pac/external-label
-          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-101
+          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-001
         - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}/logical-termination-point={uuid}/layer-protocol={localId}/air-interface-2-0:air-interface-pac/air-interface-configuration/performance-monitoring-is-on
-          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-239
+          uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-002
 
 
   - http-client:
@@ -354,12 +354,12 @@ clients:
   - http-client:
       application-name: MicroWaveDeviceInventory
       release-number: 1.1.2
-      uuid: aptp-1-1-0-http-c-mwdi-1-1-2-000
+      uuid: mo-1-0-0-http-c-mwdi-1-1-2-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
       tcp-port: 4015
-      uuid: aptp-1-1-0-tcp-c-mwdi-1-1-2-000
+      uuid: mo-1-0-0-tcp-c-mwdi-1-1-2-000
     operation-clients:
       own-oam:
         basic:
@@ -368,7 +368,7 @@ clients:
         basic:
         individual:
           - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}
-            uuid: aptp-1-1-0-op-c-is-mwdi-1-1-2-400
+            uuid: mo-1-0-0-op-c-is-mwdi-1-1-2-001
 
   - http-client:
       application-name: OpenDayLightMaster
