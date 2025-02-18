@@ -185,12 +185,3 @@ profile-instances:
 
   ## TODO: Potentially add further instances of StringProfile
 
-  - profile-name: 'DeviceTypeProfile'
-    uuid: 'mo-1-0-0-device-p-000'
-    capability:
-      device-type: 'MLTN'
-      manufacturer-name: 'Ericsson'
-      snmp-test-required: true
-      https-test-required: true
-    configuration:
-      connection-preparation-service: '/v1/prepare-connection-at-ericsson-traffic-node'
