@@ -421,4 +421,155 @@ forwardings:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
         uuid: mo-1-0-0-op-c-bm-alt-2-1-2-005
 
-  ## TODO: Potential INDIVIDUAL Forwardings to be added
+
+  - forwarding-name: RequestForMountingDeviceCausesRequestingMediatorInstance
+    uuid: mo-1-0-0-op-fc-is-001
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: MediatorManager://v1/provide-netconf-interface
+        uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
+
+  - forwarding-name: RequestForMountingDeviceCausesMountingDeviceOnMasterController
+    uuid: mo-1-0-0-op-fc-is-005
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: OpenDayLightMaster://rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+        uuid: mo-1-0-0-op-c-is-odlm-4-0-2-000
+
+  - forwarding-name: RequestForMountingDeviceCausesMountingDeviceOnSlaveController
+    uuid: mo-1-0-0-op-fc-is-006
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: OpenDayLightSlave://rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+        uuid: mo-1-0-0-tcp-c-odls-4-0-2-000
+
+  - forwarding-name: RequestForMountingDeviceCausesWritingLinkIdIntoLtp
+    uuid: mo-1-0-0-op-fc-is-007
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: LinkIdIntoLtpWriter:// # TO DO
+        uuid: mo-1-0-0-op-c-is-lilw-1-0-0-op-s-is-000
+
+  - forwarding-name: RequestForMountingDeviceCausesWritingMountNameIntoExternalLabel
+    uuid: mo-1-0-0-op-fc-is-008
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: MicroWaveDeviceGatekeeper://core-model-1-4:network-control-domain=live/control-construct={mountName}/equipment-augment-1-0:control-construct-pac/external-label
+        uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-001
+
+  - forwarding-name: RequestForMountingDeviceCausesTurningPerformanceMonitoringOn
+    uuid: mo-1-0-0-op-fc-is-009
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: MicroWaveDeviceGatekeeper://core-model-1-4:network-control-domain=live/control-construct={mountName}/logical-termination-point={uuid}/layer-protocol={localId}/air-interface-2-0:air-interface-pac/air-interface-configuration/performance-monitoring-is-on
+        uuid: mo-1-0-0-op-c-is-mwdg-1-0-2-002
+
+  - forwarding-name: RequestForMountingDeviceCausesLoadingControlConstructInCache
+    uuid: mo-1-0-0-op-fc-is-010
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: MicroWaveDeviceInventory://core-model-1-4:network-control-domain=live/control-construct={mountName}
+        uuid: mo-1-0-0-op-c-is-mwdi-1-1-2-001
+
+  - forwarding-name: RequestForMountingDeviceCausesSendingOutcomeOfMountingRequest
+    uuid: mo-1-0-0-op-fc-is-011
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name:
+          uuid:
+      fc-port-update:
+        - server-name:
+          uuid:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/mount-device
+        uuid: mo-1-0-0-op-s-is-003
+    consequent-requests:
+      - client-name: AccessPlanningToolProxy://core-model-1-4:network-control-domain=live/control-construct={mountName}
+        uuid: mo-1-0-0-op-c-is-aptp-1-1-2-050
