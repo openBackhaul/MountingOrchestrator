@@ -52,17 +52,4 @@ profiles:
       pattern: string
     configuration:
       string-value: string
-  
-  - profile-name: 'DeviceTypeProfile'
-    uuid: '^[a-z]{2,6}-([0-9]+)-([0-9]+)-([0-9]+)-device-p-[0-9]{3}$'
-    capability:
-      device-type: string
-      manufacturer-name: string
-      snmp-test-required: boolean
-      https-test-required: boolean
-    configuration:
-      connection-preparation-service: string
-      ##test-http-request: string
 
-
-## TODO: Add further Profile definitions, if required
