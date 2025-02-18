@@ -6,31 +6,15 @@ MountDevice
 end title
 
 participant "APTP" as APTP
-participant "APTP://v1/receive-outcome-of-mounting-request" as APTP_receive
 participant "MO://v1/mount-device" as MO
-participant "<i>RequestForMountingDeviceCauses\n<i>RequestingMediatorInstance</i>" as MM
-participant "<i>RequestForMountingDeviceCause\n<i>MountingDeviceOnMasterController</i>" as ODLM 
-participant "<i>RequestForMountingDeviceCauses\n<i>MountingDeviceSlaveController</i>" as ODLS
-participant "<i>RequestForMountingDeviceCauses\n<i>WritingLinkIdIntoLtp</i>" as LinkId
-participant "<i>RequestForMountingDeviceCauses\n<i>WritingMountNameIntoExternalLabel</i>" as ExternalLabel
-participant "<i>RequestForMountingDeviceCauses\n<i>TurningPerformanceMonitoringOn</i>" as PmOn
-participant "<i>RequestForMountingDeviceCauses\n<i>LoadingControlConstructInCache</i>" as MWDI
+participant "MM://v1/provide-netconf-interface" as MM
+
 
 APTP -> MO: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
-MO --> APTP: 202: {requestId}
 
-activate MO
+MO -> MM: {deviceType, manufacturerName, deviceIp, mountName} (apiKeyAuth)
 
-MM --> MO: 200: {mediatorInstanceIpAddress, mediatorInstanceNetconfPort}
-ODLM --> MO: 204
-ODLS --> MO: 204
-LinkId --> MO: 204
-ExternalLabel --> MO: 204
-PmOn --> MO: 204
-MWDI --> MO: 200 {entire CC from 'live'}
+MM --> MO: 200: {mountName, mediatorIpAddress, mediatorInstanceNetconfPort} (apiKeyAuth)
 
-MO -> APTP_receive: {requestId, 200, 'Mounting of device successful'}
-
-deactivate MO
 
 @enduml
