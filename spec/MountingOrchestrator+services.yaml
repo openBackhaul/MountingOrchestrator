@@ -51,6 +51,7 @@ servers:
         - operation-name: /docs
           uuid: mo-1-0-0-op-s-bs-005
       individual:
+
       ## Device operations
 ##      - operation-name: /v1/provide-list-of-devices
 ##        uuid: mo-1-0-0-op-s-is-001
@@ -288,7 +289,45 @@ clients:
           - operation-name: /v1/provide-netconf-interface
             uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
           - operation-name: /v1/delete-netconf-interface
-            uuid: mo-1-0-0-op-c-is-mm-1-0-0-003
+            uuid: mo-1-0-0-op-c-is-mm-1-0-0-004
+
+  - http-client:
+      application-name: OpenDayLightMaster
+      release-number: 4.0.2
+      uuid: mo-1-0-0-http-c-odlm-4-0-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 1001
+      uuid: mo-1-0-0-tcp-c-odlm-4-0-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+            uuid: mo-1-0-0-op-c-is-odlm-4-0-2-000
+
+  - http-client:
+      application-name: OpenDayLightSlave
+      release-number: 4.0.2
+      uuid: mo-1-0-0-http-c-odls-4-0-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 1002
+      uuid: mo-1-0-0-tcp-c-odls-4-0-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
+            uuid: mo-1-0-0-op-c-is-odls-4-0-2-000
 
   - http-client:
       application-name: LinkIdIntoLtpWriter
@@ -332,26 +371,6 @@ clients:
 
 
   - http-client:
-    application-name: AccessPlanningToolProxy
-    release-number: 1.1.2
-    uuid: mo-1-0-0-http-c-aptp-1-1-1-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 4020
-      uuid: mo-1-0-0-tcp-c-aptp-1-1-1-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-        ## TO DO  Potentially add receiver service for outcome of mouting request
-    ##  - operation-name: /v1/receive-outcome-of-mounting-request
-    ##    uuid: mo-1-0-0-op-c-is-aptp-1-1-2-050
-
-  - http-client:
       application-name: MicroWaveDeviceInventory
       release-number: 1.1.2
       uuid: mo-1-0-0-http-c-mwdi-1-1-2-000
@@ -370,34 +389,16 @@ clients:
           - operation-name: /core-model-1-4:network-control-domain=live/control-construct={mountName}
             uuid: mo-1-0-0-op-c-is-mwdi-1-1-2-001
 
-  - http-client:
-      application-name: OpenDayLightMaster
-      release-number: 4.0.2
-      uuid: mo-1-0-0-http-c-odlm-4-0-2-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 1001
-      uuid: mo-1-0-0-tcp-c-odlm-4-0-2-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
-            uuid: mo-1-0-0-op-c-is-odlm-4-0-2-000
 
   - http-client:
-      application-name: OpenDayLightSlave
-      release-number: 4.0.2
-      uuid: mo-1-0-0-http-c-odls-4-0-2-000
+    application-name: AccessPlanningToolProxy
+    release-number: 1.1.2
+    uuid: mo-1-0-0-http-c-aptp-1-1-1-000
     tcp-client:
       remote-protocol: http
       ip-address: 127.0.0.1
-      tcp-port: 1002
-      uuid: mo-1-0-0-tcp-c-odls-4-0-2-000
+      tcp-port: 4020
+      uuid: mo-1-0-0-tcp-c-aptp-1-1-1-000
     operation-clients:
       own-oam:
         basic:
@@ -405,5 +406,6 @@ clients:
       service:
         basic:
         individual:
-          - operation-name: /rests/data/network-topology:network-topology/topology=topology-netconf/node={nodename}
-            uuid: mo-1-0-0-op-c-is-odls-4-0-2-000
+        ## TO DO  Potentially add receiver service for outcome of mouting request
+    ##  - operation-name: /v1/receive-outcome-of-mounting-request
+    ##    uuid: mo-1-0-0-op-c-is-aptp-1-1-2-050
