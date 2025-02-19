@@ -49,7 +49,7 @@ The MountingOrchestrator is required for connecting devices to the controller.
 - [ConnectionPreparation](https://github.com/openBackhaul/ConnectionPreparation)  
 - [MediatorManager](https://github.com/openBackhaul/MediatorManager)  
 - [LinkIdIntoLtpWriter](https://github.com/openBackhaul/LinkIdIntoLtpWriter)  
-- [MicroWaveDeviceGatekeeper](https://github.com/openBackhaul/MicroWaveDeviceGatekeeper)  // (to turn performance-monitoring on; to confirm if really necessary)
+- [MicroWaveDeviceGatekeeper](https://github.com/openBackhaul/MicroWaveDeviceGatekeeper)
 - [PerformanceManagement](https://github.com/openBackhaul/PerformanceManagement)  
 - [MicroWaveDeviceInventory](https://github.com/openBackhaul/MicroWaveDeviceInventory)  
 - ODL Controller
