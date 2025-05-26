@@ -1,4 +1,4 @@
-# MountingOrchestrator  
+# ManagementPlaneManager (former MountingOrchestrator)
 
 ### Location  
 The MountingOrchestrator is part of the OperationSupport.  
