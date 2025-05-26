@@ -1,5 +1,11 @@
 # ManagementPlaneManager (former MountingOrchestrator)
 
+---
+
+_The specification has to be changed in such a way that the ManagementPlaneManager works more like an intermediate layer between APTP and DDM(incl. CP) / CDM / LILW._  
+
+---
+
 ### Location  
 The MountingOrchestrator is part of the OperationSupport.  
 
